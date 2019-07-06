@@ -49,6 +49,7 @@ function start() {
 
             ])
             .then(function (answer) {
+                var stock_quantity;
                 // Use user feedback for... whatever!!
                 console.log(answer);
                 // Loop through array of products to determine which product user wants
@@ -62,24 +63,28 @@ function start() {
 
                 if (chosenItem.stock_quantity >= parseInt(answer.secondquestion)) {
                     connection.query(
-                        "UPDATE stock?",
+                        "One removed from inventory",
                         [
                             {
                                 stock_quantity: answer.quantity
+
                             },
                             {
                                 id: chosenItem.id
                             }
                         ],
+                        //                     (chosenItem, function(err, data)
                         function (error) {
-                            if (error) throw err;
-                            console.log("one taken out of stock!");
-                            // start();
+                            if (err) throw err;
+                            console.log("order placed successfully!");
+                            start();
                         }
                     );
-                }else{
-                    console.log("we don't have enough quantity");
                 }
-            })
-    })
+                else {
+                    console.log("sorry there is not enough!");
+                    start();
+                       }
+      });
+  });
 }
